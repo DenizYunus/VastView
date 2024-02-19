@@ -34,6 +34,20 @@ namespace TLab.InputField
             base.OnEnable();
 
             SwitchDisp();
+
+            //Here starts my changes
+            BoxCollider col = gameObject.AddComponent<BoxCollider>();
+            col.isTrigger = true;
+            col.providesContacts = true;
+            col.size = new Vector3(70, 70, 5);
+            Rigidbody rigidbody = gameObject.AddComponent<Rigidbody>();
+            rigidbody.useGravity = false;
+            rigidbody.isKinematic = true;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            OnPress();
         }
 
 #if UNITY_EDITOR
