@@ -1,13 +1,13 @@
 {
   "dependencies": {
     "com.meta.xr.mrutilitykit": {
-      "version": "60.0.0",
-      "depth": 1,
+      "version": "62.0.0",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.meta.xr.sdk.core": "60.0.0",
-        "com.meta.xr.sdk.interaction": "60.0.0",
-        "com.meta.xr.sdk.interaction.ovr": "60.0.0",
+        "com.meta.xr.sdk.core": "62.0.0",
+        "com.meta.xr.sdk.interaction": "62.0.0",
+        "com.meta.xr.sdk.interaction.ovr": "62.0.0",
         "com.unity.ai.navigation": "1.1.4",
         "com.unity.nuget.newtonsoft-json": "3.0.2",
         "com.unity.textmeshpro": "3.0.6"
@@ -43,23 +43,23 @@
     },
     "com.meta.xr.sdk.core": {
       "version": "62.0.0",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.haptics": {
-      "version": "60.0.0",
-      "depth": 1,
+      "version": "62.0.0",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.meta.xr.sdk.core": "60.0.0"
+        "com.meta.xr.sdk.core": "62.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.interaction": {
       "version": "62.0.0",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.textmeshpro": "3.0.6",
@@ -88,11 +88,11 @@
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.platform": {
-      "version": "60.0.0",
-      "depth": 1,
+      "version": "62.0.0",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.meta.xr.sdk.core": "60.0.0",
+        "com.meta.xr.sdk.core": "62.0.0",
         "com.unity.ugui": "1.0.0"
       },
       "url": "https://packages.unity.com"
@@ -140,15 +140,15 @@
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.simulator": {
-      "version": "60.0.0",
-      "depth": 1,
+      "version": "62.0.0",
+      "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.ai.navigation": {
       "version": "1.1.5",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.ai": "1.0.0"
@@ -217,7 +217,7 @@
     },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.2.1",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
