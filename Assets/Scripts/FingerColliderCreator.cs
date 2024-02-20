@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using TLab.Android.WebView;
 using UnityEngine;
@@ -16,6 +14,10 @@ public class FingerColliderCreator : MonoBehaviour
 
     bool created = false;
 
+    public OVRPlugin.SkeletonType skeletonType;
+
+    HandPlayerController handPlayerController;
+
     void Start()
     {
         skeleton = GetComponent<OVRSkeleton>();
@@ -31,6 +33,23 @@ public class FingerColliderCreator : MonoBehaviour
         sphere.AddComponent<VRHandBrowserEvents>().SetProperties(m_tlabWebView, m_webViewRect);
         rb.useGravity = false;
         rb.isKinematic = true;
+        handPlayerController = sphere.AddComponent<HandPlayerController>();
+        handPlayerController.skeletonType = skeletonType;
+        handPlayerController.Initialize();
+        var hsc = sphere.AddComponent<HandSphereClimb>();
+        hsc.skeletonType = skeletonType;
+        hsc.Initialize();
+
+    }
+
+    public void SetRock(bool value)
+    {
+        handPlayerController.SetRock(value);
+    }
+
+    public void SetPointing(bool value)
+    {
+        handPlayerController.SetPointing(value);
     }
 
     void Update()
@@ -43,8 +62,9 @@ public class FingerColliderCreator : MonoBehaviour
                 if (bone != null)
                 {
                     sphere.transform.SetParent(bone.Transform, false);
-                    sphere.transform.localScale = Vector3.one / 20;
+                    sphere.transform.localScale = Vector3.one / 10;
                     sphere.transform.localPosition = Vector3.zero;
+                    created = true;
                     //sphere.transform.position = bone.Transform.position;
                 }
             }
