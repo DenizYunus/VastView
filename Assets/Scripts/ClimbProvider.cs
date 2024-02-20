@@ -71,6 +71,8 @@ public class ClimbProvider : MonoBehaviour
             movement *= 0.5f;
         }
 
+        //print(movement);
+
         // Apply the calculated movement to your character controller or Rigidbody here
         controller.Move(movement);
     }

@@ -37,7 +37,7 @@ namespace TLab.InputField
 
             //Here starts my changes
             BoxCollider col = gameObject.AddComponent<BoxCollider>();
-            col.isTrigger = true;
+            //col.isTrigger = true; // Disabled because working on climb 
             col.providesContacts = true;
             col.size = new Vector3(70, 70, 5);
             Rigidbody rigidbody = gameObject.AddComponent<Rigidbody>();
@@ -47,7 +47,8 @@ namespace TLab.InputField
 
         private void OnTriggerEnter(Collider other)
         {
-            OnPress();
+            ///TODO: CORRECT THIS
+            //OnPress();
         }
 
 #if UNITY_EDITOR

@@ -57,22 +57,28 @@ public class HandPlayerController : MonoBehaviour
 
     public void Initialize()
     {
-        if (LeftHandInstance != null && LeftHandInstance != this && skeletonType == OVRPlugin.SkeletonType.HandLeft)
+        if (skeletonType == OVRPlugin.SkeletonType.HandLeft)
         {
-            Destroy(this);
-        }
-        else
-        {
-            LeftHandInstance = this;
+            if (LeftHandInstance != null && LeftHandInstance != this)
+            {
+                Destroy(this);
+            }
+            else
+            {
+                LeftHandInstance = this;
+            }
         }
 
-        if (RightHandInstance != null && RightHandInstance != this && skeletonType == OVRPlugin.SkeletonType.HandRight)
+        if (skeletonType == OVRPlugin.SkeletonType.HandRight)
         {
-            Destroy(this);
-        }
-        else
-        {
-            RightHandInstance = this;
+            if (RightHandInstance != null && RightHandInstance != this)
+            {
+                Destroy(this);
+            }
+            else
+            {
+                RightHandInstance = this;
+            }
         }
     }
 
@@ -92,6 +98,6 @@ public class HandPlayerController : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,7 +9,11 @@ public class HandSphereClimb : MonoBehaviour
     public static HandSphereClimb LeftHandInstance;
     public static HandSphereClimb RightHandInstance;
 
-    HandPlayerController handController;
+    public HandPlayerController handController;
+
+    bool handActivated = false;
+
+    bool isColliding = false;
 
     private void OnEnable()
     {
@@ -24,54 +29,72 @@ public class HandSphereClimb : MonoBehaviour
 
     public void Initialize()
     {
-        if (LeftHandInstance != null && LeftHandInstance != this && skeletonType == OVRPlugin.SkeletonType.HandLeft)
+        if (skeletonType == OVRPlugin.SkeletonType.HandLeft)
         {
-            print("aaaaa");
-            Destroy(this);
-        }
-        else
-        {
-            LeftHandInstance = this;
-            handController = HandPlayerController.LeftHandInstance;
+            if (LeftHandInstance != null && LeftHandInstance != this)
+            {
+                Destroy(this);
+            }
+            else
+            {
+                LeftHandInstance = this;
+                handController = HandPlayerController.LeftHandInstance;
+            }
         }
 
-        if (RightHandInstance != null && RightHandInstance != this && skeletonType == OVRPlugin.SkeletonType.HandRight)
+        if (skeletonType == OVRPlugin.SkeletonType.HandRight)
         {
-            print("aaaaab");
-            Destroy(this);
-        }
-        else
-        {
-            RightHandInstance = this;
-            handController = HandPlayerController.RightHandInstance;
+            if (RightHandInstance != null && RightHandInstance != this)
+            {
+                Destroy(this);
+            }
+            else
+            {
+                RightHandInstance = this;
+                handController = HandPlayerController.RightHandInstance;
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (isColliding) return;
+        isColliding = true;
+
+        print(other.tag);
+
         if (other.CompareTag("Climbable") && handController.handShape == HandPlayerController.HandShape.Rock)
         {
             ClimbProvider.Instance.HandActivated(skeletonType);
+            handActivated = true;
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (handController.handShape == HandPlayerController.HandShape.Rock)
+        if (handActivated == false && handController.handShape == HandPlayerController.HandShape.Rock)
         {
             ClimbProvider.Instance.HandActivated(skeletonType);
+            handActivated = true;
         }
-        else
+        else if (handActivated == true && handController.handShape != HandPlayerController.HandShape.Rock)
         {
             ClimbProvider.Instance.HandDeactivated(skeletonType);
+            handActivated = false;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        if (!isColliding) return;
+
+        isColliding = false;
+
+        print(other.tag);
         if (other.CompareTag("Climbable"))
         {
             ClimbProvider.Instance.HandDeactivated(skeletonType);
+            handActivated = false;
         }
     }
 }
