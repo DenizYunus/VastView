@@ -28,7 +28,7 @@ public class FingerColliderCreator : MonoBehaviour
         }
 
         sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.AddComponent<SphereCollider>();
+        sphere.AddComponent<BoxCollider>();
         var rb = sphere.AddComponent<Rigidbody>();
         sphere.AddComponent<VRHandBrowserEvents>().SetProperties(m_tlabWebView, m_webViewRect);
         rb.useGravity = false;
@@ -39,6 +39,14 @@ public class FingerColliderCreator : MonoBehaviour
         var hsc = sphere.AddComponent<HandSphereClimb>();
         hsc.skeletonType = skeletonType;
         hsc.Initialize();
+
+
+
+
+
+        sphere.transform.SetParent(transform, false);
+        sphere.transform.localScale = Vector3.one / 10;
+        sphere.transform.localPosition = Vector3.zero;
 
     }
 

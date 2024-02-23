@@ -58,10 +58,11 @@ public class HandSphereClimb : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        print("on trigger enter rock");
         if (isColliding) return;
         isColliding = true;
-
         print(other.tag);
+
 
         if (other.CompareTag("Climbable") && handController.handShape == HandPlayerController.HandShape.Rock)
         {
@@ -87,10 +88,10 @@ public class HandSphereClimb : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!isColliding) return;
-
         isColliding = false;
 
         print(other.tag);
+
         if (other.CompareTag("Climbable"))
         {
             ClimbProvider.Instance.HandDeactivated(skeletonType);

@@ -31,6 +31,7 @@ public class VRHandBrowserEvents : MonoBehaviour
     {
         if (GetComponent<HandPlayerController>().handShape == HandPlayerController.HandShape.Pointing)
         {
+            print("on trigger enter pointing");
             hasContact = true;
 
             Vector3 invertPosition = m_webViewRect.transform.InverseTransformPoint(col.ClosestPoint(other.transform.position));
