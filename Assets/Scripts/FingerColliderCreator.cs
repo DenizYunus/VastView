@@ -29,6 +29,7 @@ public class FingerColliderCreator : MonoBehaviour
 
         sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.AddComponent<BoxCollider>();
+        sphere.GetComponent<MeshRenderer>().enabled = false;
         var rb = sphere.AddComponent<Rigidbody>();
         sphere.AddComponent<VRHandBrowserEvents>().SetProperties(m_tlabWebView, m_webViewRect);
         rb.useGravity = false;

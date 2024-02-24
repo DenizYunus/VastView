@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class ClimbProvider : MonoBehaviour
@@ -10,16 +9,13 @@ public class ClimbProvider : MonoBehaviour
 
     private Vector3 _verticalVelocity = Vector3.zero;
 
-    private Vector3 _lastLeftHandPosition;
-    private Vector3 _lastRightHandPosition;
+    // Hand activation flags
     public bool _leftHandActive = false;
     public bool _rightHandActive = false;
 
-    private Vector3 _leftHandReferencePosition;
-    private Vector3 _rightHandReferencePosition;
-
-    private Vector3 movedLeftHandVector = Vector3.zero;
-    private Vector3 movedRightHandVector = Vector3.zero;
+    // Tracking initial grab positions for movement calculation
+    private Vector3 _initialLeftHandPosition;
+    private Vector3 _initialRightHandPosition;
 
     void Awake()
     {
@@ -30,6 +26,7 @@ public class ClimbProvider : MonoBehaviour
         else
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
@@ -37,67 +34,34 @@ public class ClimbProvider : MonoBehaviour
     {
         Vector3 movement = Vector3.zero;
 
-        // Apply hand movements
-        movement += ApplyHandMovement();
+        if (_leftHandActive)
+        {
+            movement += CalculateClimbingMovement(_initialLeftHandPosition, HandSphereClimb.LeftHandInstance.transform.position);
+        }
 
-        //print(movement);
-        
-        // Apply gravity if needed
+        if (_rightHandActive)
+        {
+            movement += CalculateClimbingMovement(_initialRightHandPosition, HandSphereClimb.RightHandInstance.transform.position);
+        }
+
         ApplyGravityIfNeeded();
-        
-        // Add vertical velocity if not climbing
+
         if (!_leftHandActive && !_rightHandActive)
         {
             movement += _verticalVelocity * Time.deltaTime;
         }
 
-        //print("After Gravity: " + movement);
-
-        // Move the character
         controller.Move(movement);
     }
 
-    private Vector3 ApplyHandMovement()
+    private Vector3 CalculateClimbingMovement(Vector3 initialPosition, Vector3 currentPosition)
     {
-        Vector3 movement = Vector3.zero;
+        // Calculate the movement based on the difference from the initial grab position
+        Vector3 movementSinceGrab = initialPosition - currentPosition;
 
-        if (_leftHandActive)
-        {
-            movement += UpdateHandMovement(ref _lastLeftHandPosition, _leftHandReferencePosition, ref movedLeftHandVector, HandSphereClimb.LeftHandInstance);
-        }
-
-        if (_rightHandActive)
-        {
-            movement += UpdateHandMovement(ref _lastRightHandPosition, _rightHandReferencePosition, ref movedRightHandVector, HandSphereClimb.RightHandInstance);
-        }
-
-
-        // Normalize the movement if both hands are active
-        if (_leftHandActive && _rightHandActive) 
-        {
-            movement *= 0.5f;
-        }
-
-        return movement;
+        // Invert the movement to simulate climbing (moving the character opposite to the hand's movement)
+        return movementSinceGrab;
     }
-
-    private Vector3 UpdateHandMovement(ref Vector3 lastHandPosition, Vector3 referenceHandPosition, ref Vector3 handMovedVector, HandSphereClimb handInstance)
-    {
-        if (handInstance == null) return Vector3.zero;
-
-        Vector3 currentHandPosition = handInstance.transform.position;
-
-        Vector3 movementSinceActivation = currentHandPosition - referenceHandPosition;
-
-        Vector3 movement = movementSinceActivation - handMovedVector;
-
-        handMovedVector += movement;
-
-        //lastHandPosition = currentHandPosition;
-
-        return movementSinceActivation;
-    }
-
 
     private void ApplyGravityIfNeeded()
     {
@@ -118,46 +82,36 @@ public class ClimbProvider : MonoBehaviour
         }
     }
 
-    //private Vector3 CalculateMovement()
-    //{
-    //    Vector3 movement = Vector3.zero;
-    //    // Depending on how you apply the hand movement, accumulate it here.
-    //    if (!_leftHandActive && !_rightHandActive)
-    //    {
-    //        movement += _verticalVelocity * Time.deltaTime;
-    //    }
-    //    return movement;
-    //}
-
     public void HandActivated(OVRPlugin.SkeletonType skeletonType)
     {
         if (skeletonType == OVRPlugin.SkeletonType.HandLeft)
         {
             _leftHandActive = true;
-            _leftHandReferencePosition = HandSphereClimb.LeftHandInstance.transform.position; // Set reference position
-            _lastLeftHandPosition = _leftHandReferencePosition; // Synchronize last position with reference position
+            // Capture the initial hand position at the moment of activation
+            _initialLeftHandPosition = HandSphereClimb.LeftHandInstance.transform.position;
         }
         else if (skeletonType == OVRPlugin.SkeletonType.HandRight)
         {
             _rightHandActive = true;
-            _rightHandReferencePosition = HandSphereClimb.RightHandInstance.transform.position; // Set reference position
-            _lastRightHandPosition = _rightHandReferencePosition; // Synchronize last position with reference position
+            // Capture the initial hand position at the moment of activation
+            _initialRightHandPosition = HandSphereClimb.RightHandInstance.transform.position;
         }
     }
-
 
     public void HandDeactivated(OVRPlugin.SkeletonType skeletonType)
     {
-        if (skeletonType == OVRPlugin.SkeletonType.HandRight)
-        {
-            _rightHandActive = false;
-        }
-        else if (skeletonType == OVRPlugin.SkeletonType.HandLeft)
+        if (skeletonType == OVRPlugin.SkeletonType.HandLeft)
         {
             _leftHandActive = false;
         }
+        else if (skeletonType == OVRPlugin.SkeletonType.HandRight)
+        {
+            _rightHandActive = false;
+        }
     }
 }
+
+
 
 
 
