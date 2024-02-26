@@ -20,30 +20,30 @@ MonoBehaviour:
     - _mode: 1
       _feature: 0
       _state: 0
-    - _mode: 0
+    - _mode: 1
       _feature: 1
-      _state: 5
+      _state: 3
   _middleFeatureConfigs:
     _value:
     - _mode: 1
       _feature: 0
       _state: 0
-    - _mode: 0
+    - _mode: 1
       _feature: 1
-      _state: 5
+      _state: 3
   _ringFeatureConfigs:
     _value:
     - _mode: 1
       _feature: 0
       _state: 0
-    - _mode: 0
+    - _mode: 1
       _feature: 1
-      _state: 5
+      _state: 3
   _pinkyFeatureConfigs:
     _value:
     - _mode: 1
       _feature: 0
       _state: 0
-    - _mode: 0
+    - _mode: 1
       _feature: 1
-      _state: 5
+      _state: 3

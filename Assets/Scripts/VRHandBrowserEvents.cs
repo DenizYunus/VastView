@@ -1,4 +1,5 @@
 using TLab.Android.WebView;
+using TLab.InputField;
 using UnityEngine;
 
 public class VRHandBrowserEvents : MonoBehaviour
@@ -31,25 +32,38 @@ public class VRHandBrowserEvents : MonoBehaviour
     {
         if (GetComponent<HandPlayerController>().handShape == HandPlayerController.HandShape.Pointing)
         {
-            print("on trigger enter pointing");
-            hasContact = true;
+            if (other.CompareTag("Climbable"))
+            {
+                print("on trigger enter pointing");
+                hasContact = true;
 
-            Vector3 invertPosition = m_webViewRect.transform.InverseTransformPoint(col.ClosestPoint(other.transform.position));
+                Vector3 invertPosition = m_webViewRect.transform.InverseTransformPoint(col.ClosestPoint(other.transform.position));
 
-            // https://docs.unity3d.com/jp/2018.4/ScriptReference/Transform.InverseTransformPoint.html
-            invertPosition.z *= m_webViewRect.transform.lossyScale.z;
+                // https://docs.unity3d.com/jp/2018.4/ScriptReference/Transform.InverseTransformPoint.html
+                invertPosition.z *= m_webViewRect.transform.lossyScale.z;
 
-            float uvX = invertPosition.x / m_webViewRect.rect.width + m_webViewRect.pivot.x;
-            float uvY = 1.0f - (invertPosition.y / m_webViewRect.rect.height + m_webViewRect.pivot.x);
+                float uvX = invertPosition.x / m_webViewRect.rect.width + m_webViewRect.pivot.x;
+                float uvY = 1.0f - (invertPosition.y / m_webViewRect.rect.height + m_webViewRect.pivot.x);
 
-            m_onTheWeb = true;
+                m_onTheWeb = true;
 
-            m_lastXPos = (int)(uvX * m_tlabWebView.WebWidth);
-            m_lastYPos = (int)(uvY * m_tlabWebView.WebHeight);
+                m_lastXPos = (int)(uvX * m_tlabWebView.WebWidth);
+                m_lastYPos = (int)(uvY * m_tlabWebView.WebHeight);
 
-            int eventNum = TOUCH_DOWN;
+                int eventNum = TOUCH_DOWN;
 
-            m_tlabWebView.TouchEvent(m_lastXPos, m_lastYPos, eventNum);
+                m_tlabWebView.TouchEvent(m_lastXPos, m_lastYPos, eventNum);
+            }
+            else if (other.CompareTag("Key"))
+            {
+                print(other.gameObject.name);
+                other.GetComponent<Key>().OnPress();
+            }
+            else if (other.CompareTag("SKey"))
+            {
+                print(other.gameObject.name);
+                other.GetComponent<SKey>().OnPress();
+            }
         }
     }
 

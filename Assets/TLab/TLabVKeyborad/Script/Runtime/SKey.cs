@@ -27,6 +27,20 @@ namespace TLab.InputField
             m_lowerDisp.SetActive(true);
         }
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+
+            //Here starts my changes
+            BoxCollider col = gameObject.AddComponent<BoxCollider>();
+            col.isTrigger = true; // Disabled because working on climb 
+            col.providesContacts = true;
+            col.size = new Vector3(GetComponent<RectTransform>().rect.width, GetComponent<RectTransform>().rect.height, 5);
+            Rigidbody rigidbody = gameObject.AddComponent<Rigidbody>();
+            rigidbody.isKinematic = true;
+            tag = "SKey";
+        }
+
 #if UNITY_EDITOR
         public override void Setup()
         {

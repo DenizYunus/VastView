@@ -46,7 +46,7 @@ public class FingerColliderCreator : MonoBehaviour
 
 
         sphere.transform.SetParent(transform, false);
-        sphere.transform.localScale = Vector3.one / 10;
+        sphere.transform.localScale = Vector3.one / 20;
         sphere.transform.localPosition = Vector3.zero;
 
     }
