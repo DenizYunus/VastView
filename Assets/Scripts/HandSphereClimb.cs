@@ -58,7 +58,6 @@ public class HandSphereClimb : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("on trigger enter rock");
         if (isColliding) return;
         isColliding = true;
         print(other.tag);
