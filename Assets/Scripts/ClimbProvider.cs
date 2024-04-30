@@ -109,6 +109,26 @@ public class ClimbProvider : MonoBehaviour
             _rightHandActive = false;
         }
     }
+
+    public void MoveForward()
+    {
+        controller.Move(controller.transform.forward * Time.deltaTime);
+    }
+
+    public void MoveBackward()
+    {
+        controller.Move(-controller.transform.forward * Time.deltaTime);
+    }
+
+    public void MoveLeft()
+    {
+        controller.Move(-controller.transform.right * Time.deltaTime);
+    }
+
+    public void MoveRight()
+    {
+        controller.Move(controller.transform.right * Time.deltaTime);
+    }
 }
 
 
