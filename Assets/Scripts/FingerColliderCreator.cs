@@ -7,20 +7,54 @@ public class FingerColliderCreator : MonoBehaviour
     OVRSkeleton skeleton;
     OVRBone bone;
 
-    GameObject sphere;
+    public GameObject sphere;
 
     public TLabWebView m_tlabWebView;
     public RectTransform m_webViewRect;
 
-    bool created = false;
+    public bool created = false;
 
     public OVRPlugin.SkeletonType skeletonType;
 
     HandPlayerController handPlayerController;
+    public Transform controllerParent;
+
+    public static FingerColliderCreator LeftHandInstance;
+    public static FingerColliderCreator RightHandInstance;
+
+    void CreateInstance()
+    {
+        if (skeletonType == OVRPlugin.SkeletonType.HandLeft)
+        {
+            if (LeftHandInstance != null && LeftHandInstance != this)
+            {
+                Destroy(this);
+            }
+            else
+            {
+                LeftHandInstance = this;
+            }
+        }
+
+        if (skeletonType == OVRPlugin.SkeletonType.HandRight)
+        {
+            if (RightHandInstance != null && RightHandInstance != this)
+            {
+                Destroy(this);
+            }
+            else
+            {
+                RightHandInstance = this;
+            }
+        }
+    }
 
     void Start()
     {
         skeleton = GetComponent<OVRSkeleton>();
+
+        CreateInstance();
+
         if (skeleton == null)
         {
             Debug.LogError("OVRSkeleton component not found on the GameObject.");
@@ -46,7 +80,7 @@ public class FingerColliderCreator : MonoBehaviour
 
 
         sphere.transform.SetParent(transform, false);
-        sphere.transform.localScale = Vector3.one / 20;
+        sphere.transform.localScale = Vector3.one / 40;
         sphere.transform.localPosition = Vector3.zero;
 
     }

@@ -17,6 +17,9 @@ public class ClimbProvider : MonoBehaviour
     private Vector3 _initialLeftHandPosition;
     private Vector3 _initialRightHandPosition;
 
+    bool flyModeActive = false;
+    public GameObject flyModePlane;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -65,7 +68,7 @@ public class ClimbProvider : MonoBehaviour
 
     private void ApplyGravityIfNeeded()
     {
-        if (!_leftHandActive && !_rightHandActive)
+        if (!_leftHandActive && !_rightHandActive && !flyModeActive)
         {
             if (controller.isGrounded)
             {
@@ -128,6 +131,24 @@ public class ClimbProvider : MonoBehaviour
     public void MoveRight()
     {
         controller.Move(controller.transform.right * Time.deltaTime);
+    }
+
+    public void ToggleFlyMode()
+    {
+        flyModeActive = !flyModeActive;
+        flyModePlane.SetActive(flyModeActive);
+    }
+
+    public void MoveUp()
+    {
+        if (flyModeActive)
+            controller.Move(controller.transform.up * Time.deltaTime);
+    }
+
+    public void MoveDown()
+    {
+        if (flyModeActive)
+            controller.Move(-controller.transform.up * Time.deltaTime);
     }
 }
 
