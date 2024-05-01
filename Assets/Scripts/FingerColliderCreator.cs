@@ -80,7 +80,7 @@ public class FingerColliderCreator : MonoBehaviour
 
 
         sphere.transform.SetParent(transform, false);
-        sphere.transform.localScale = Vector3.one / 40;
+        sphere.transform.localScale = Vector3.one / 20;
         sphere.transform.localPosition = Vector3.zero;
 
     }
@@ -105,7 +105,7 @@ public class FingerColliderCreator : MonoBehaviour
                 if (bone != null)
                 {
                     sphere.transform.SetParent(bone.Transform, false);
-                    sphere.transform.localScale = Vector3.one / 10;
+                    sphere.transform.localScale = Vector3.one / 20;
                     sphere.transform.localPosition = Vector3.zero;
                     created = true;
                     //sphere.transform.position = bone.Transform.position;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ClimbProvider : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class ClimbProvider : MonoBehaviour
     private Vector3 _initialRightHandPosition;
 
     bool flyModeActive = false;
-    public GameObject flyModePlane;
+    public List<GameObject> flyModePlanes;
 
     void Awake()
     {
@@ -136,7 +137,7 @@ public class ClimbProvider : MonoBehaviour
     public void ToggleFlyMode()
     {
         flyModeActive = !flyModeActive;
-        flyModePlane.SetActive(flyModeActive);
+        flyModePlanes.ForEach(plane => plane.SetActive(flyModeActive));
     }
 
     public void MoveUp()
