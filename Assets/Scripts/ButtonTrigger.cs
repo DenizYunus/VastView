@@ -10,6 +10,8 @@ public class ButtonTrigger : MonoBehaviour
     float triggerTimer = 0.1f;
     bool canBeTriggered = true;
 
+    public bool object2D = false;
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<HandPlayerController>() != null && other.gameObject.name == "Sphere" && canBeTriggered)
@@ -33,5 +35,26 @@ public class ButtonTrigger : MonoBehaviour
         {
             onButtonHold.Invoke();
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (object2D)
+            if (collision.gameObject.GetComponent<HandPlayerController>() != null && collision.gameObject.name == "Sphere" && canBeTriggered)
+            {
+                Debug.Log("Button pressed by " + collision.name);
+                onButtonPress.Invoke();
+                canBeTriggered = false;
+                StartCoroutine(ResetTriggerBool());
+            }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (object2D)
+            if (collision.gameObject.GetComponent<HandPlayerController>() != null && collision.gameObject.name == "Sphere")
+            {
+                onButtonHold.Invoke();
+            }
     }
 }

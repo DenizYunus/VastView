@@ -36,13 +36,13 @@ namespace TLab.InputField
             SwitchDisp();
 
             //Here starts my changes
-            BoxCollider col = gameObject.AddComponent<BoxCollider>();
-            col.isTrigger = true; // Disabled because working on climb 
-            col.providesContacts = true;
-            //col.size = new Vector3(70, 70, 5);
-            col.size = new Vector3(GetComponent<RectTransform>().rect.width, GetComponent<RectTransform>().rect.height, 5);
-            Rigidbody rigidbody = gameObject.AddComponent<Rigidbody>();
-            rigidbody.isKinematic = true;
+            //BoxCollider col = gameObject.AddComponent<BoxCollider>();
+            //col.isTrigger = true; // Disabled because working on climb 
+            //col.providesContacts = true;
+            ////col.size = new Vector3(70, 70, 5);
+            //col.size = new Vector3(GetComponent<RectTransform>().rect.width, GetComponent<RectTransform>().rect.height, 5);
+            //Rigidbody rigidbody = gameObject.AddComponent<Rigidbody>();
+            //rigidbody.isKinematic = true;
             tag = "Key";
         }
 
