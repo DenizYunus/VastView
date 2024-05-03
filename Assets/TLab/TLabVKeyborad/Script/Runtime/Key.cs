@@ -9,6 +9,7 @@ namespace TLab.InputField
 
         public override void OnPress()
         {
+            Debug.Log("Key OnPress: " + m_lower);
             keyborad.OnKeyPress(keyborad.shift ? m_upper : m_lower);
         }
 
