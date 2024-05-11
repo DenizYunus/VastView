@@ -54,16 +54,16 @@ public class VRHandBrowserEvents : MonoBehaviour
 
                 m_tlabWebView.TouchEvent(m_lastXPos, m_lastYPos, eventNum);
             }
-            else if (other.CompareTag("Key"))
-            {
-                print(other.gameObject.name);
-                other.GetComponent<Key>().OnPress();
-            }
-            else if (other.CompareTag("SKey"))
-            {
-                print(other.gameObject.name);
-                other.GetComponent<SKey>().OnPress();
-            }
+            //else if (other.CompareTag("Key"))
+            //{
+            //    print(other.gameObject.name);
+            //    other.GetComponent<Key>().OnPress();
+            //}
+            //else if (other.CompareTag("SKey"))
+            //{
+            //    print(other.gameObject.name);
+            //    other.GetComponent<SKey>().OnPress();
+            //}
         }
     }
 

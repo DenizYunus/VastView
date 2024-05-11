@@ -5,6 +5,16 @@ public class HandTrackingAndControllerSwitcher : MonoBehaviour
     private bool leftHandUsingController = false;
     private bool rightHandUsingController = false;
 
+    // A gameobject will be on 2 different positions and rotations for controller and hand tracking, so we need to switch between them, write a script to do that
+
+    public GameObject menu;
+    public GameObject menuSwitch;
+
+    public Transform menuInController;
+    public Transform menuInHand;
+    public Transform menuSwitchInController;
+    public Transform menuSwitchInHand;
+
     void Start()
     {
         OVRManager.InputFocusAcquired += HandleInputFocusAcquired;
@@ -74,8 +84,10 @@ public class HandTrackingAndControllerSwitcher : MonoBehaviour
 
     void UpdateInputMethod()
     {
-        bool leftControllerConnected = OVRInput.IsControllerConnected(OVRInput.Controller.LTouch);
-        bool rightControllerConnected = OVRInput.IsControllerConnected(OVRInput.Controller.RTouch);
+        //bool leftControllerConnected = OVRInput.IsControllerConnected(OVRInput.Controller.LTouch);
+        //bool rightControllerConnected = OVRInput.IsControllerConnected(OVRInput.Controller.RTouch);
+        bool leftControllerConnected = (OVRInput.GetControllerIsInHandState(OVRInput.Hand.HandLeft) == OVRInput.ControllerInHandState.ControllerInHand);
+        bool rightControllerConnected = (OVRInput.GetControllerIsInHandState(OVRInput.Hand.HandRight) == OVRInput.ControllerInHandState.ControllerInHand);
 
         // Update left hand usage
         if (leftControllerConnected && !leftHandUsingController)
@@ -83,12 +95,16 @@ public class HandTrackingAndControllerSwitcher : MonoBehaviour
             leftHandUsingController = true;
             FingerColliderCreator.LeftHandInstance.sphere.transform.SetParent(FingerColliderCreator.LeftHandInstance.controllerParent, false);
             Debug.Log("Left hand switched to Controller Tracking");
+            UpdateTransform(menu, menuInController);
+            UpdateTransform(menuSwitch, menuSwitchInController);
         }
         else if (!leftControllerConnected && leftHandUsingController)
         {
             leftHandUsingController = false;
             FingerColliderCreator.LeftHandInstance.created = false;
             Debug.Log("Left hand switched to Hand Tracking");
+            UpdateTransform(menu, menuInHand);
+            UpdateTransform(menuSwitch, menuSwitchInHand);
         }
 
         // Update right hand usage
@@ -96,7 +112,6 @@ public class HandTrackingAndControllerSwitcher : MonoBehaviour
         {
             rightHandUsingController = true;
             FingerColliderCreator.RightHandInstance.sphere.transform.SetParent(FingerColliderCreator.RightHandInstance.controllerParent, false);
-
             Debug.Log("Right hand switched to Controller Tracking");
         }
         else if (!rightControllerConnected && rightHandUsingController)
@@ -105,6 +120,12 @@ public class HandTrackingAndControllerSwitcher : MonoBehaviour
             FingerColliderCreator.RightHandInstance.created = false;
             Debug.Log("Right hand switched to Hand Tracking");
         }
+    }
+
+    void UpdateTransform(GameObject obj, Transform target)
+    {
+        obj.transform.position = target.position;
+        obj.transform.rotation = target.rotation;
     }
 
     private void HandleInputFocusAcquired()
