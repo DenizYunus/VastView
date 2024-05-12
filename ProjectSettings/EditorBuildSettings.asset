@@ -9,7 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleSceneTest.unity
     guid: 7c697ea04c1ccff4a99a3d4e40129b20
   - enabled: 0
-    path: Assets/Samples/Meta XR Interaction SDK OVR Samples/62.0.0/Example Scenes/ConcurrentHandsControllersExamples.unity
+    path: Assets/3rdParty/Samples/Meta XR Interaction SDK OVR Samples/62.0.0/Example
+      Scenes/ConcurrentHandsControllersExamples.unity
     guid: 10824ac1a08b9a0459de4c071e1db2aa
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
