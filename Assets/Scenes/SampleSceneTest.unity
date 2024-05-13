@@ -9292,8 +9292,8 @@ Transform:
   m_GameObject: {fileID: 1252075466}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: -0.6, z: 0}
-  m_LocalScale: {x: 0.1725, y: 0.105, z: 0.105}
+  m_LocalPosition: {x: 0, y: -0.503, z: -0}
+  m_LocalScale: {x: 0.138, y: 0.084, z: 0.084}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 357010630}
@@ -12922,6 +12922,7 @@ MonoBehaviour:
   _rightHandActive: 0
   flyModePlanes:
   - {fileID: 18107356}
+  cameraObjectForMovement: {fileID: 1560238204}
 --- !u!114 &1678126031
 MonoBehaviour:
   m_ObjectHideFlags: 0

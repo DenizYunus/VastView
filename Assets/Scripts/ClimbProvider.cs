@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Oculus.Interaction;
 
 public class ClimbProvider : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class ClimbProvider : MonoBehaviour
 
     bool flyModeActive = false;
     public List<GameObject> flyModePlanes;
+
+    public GameObject cameraObjectForMovement;
 
     void Awake()
     {
@@ -54,6 +57,8 @@ public class ClimbProvider : MonoBehaviour
         {
             movement += _verticalVelocity * Time.deltaTime;
         }
+
+        
 
         controller.Move(movement);
     }
@@ -116,22 +121,22 @@ public class ClimbProvider : MonoBehaviour
 
     public void MoveForward()
     {
-        controller.Move(controller.transform.forward * Time.deltaTime);
+        controller.Move(cameraObjectForMovement.transform.forward * Time.deltaTime);
     }
 
     public void MoveBackward()
     {
-        controller.Move(-controller.transform.forward * Time.deltaTime);
+        controller.Move(-cameraObjectForMovement.transform.forward * Time.deltaTime);
     }
 
     public void MoveLeft()
     {
-        controller.Move(-controller.transform.right * Time.deltaTime);
+        controller.Move(-cameraObjectForMovement.transform.right * Time.deltaTime);
     }
 
     public void MoveRight()
     {
-        controller.Move(controller.transform.right * Time.deltaTime);
+        controller.Move(cameraObjectForMovement.transform.right * Time.deltaTime);
     }
 
     public void ToggleFlyMode()
