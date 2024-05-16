@@ -4,6 +4,8 @@ public class PassthroughController : MonoBehaviour
 {
     OVRPassthroughLayer passthroughLayer;
 
+    public GameObject groundGameObject;
+
     void Start()
     {
         passthroughLayer = GetComponent<OVRPassthroughLayer>();
@@ -40,6 +42,7 @@ public class PassthroughController : MonoBehaviour
             var centerCamera = ovrCameraRig.centerEyeAnchor.GetComponent<Camera>();
             centerCamera.clearFlags = CameraClearFlags.SolidColor;
             centerCamera.backgroundColor = Color.clear;
+            groundGameObject.SetActive(false);
         }
         else
         {
@@ -49,6 +52,7 @@ public class PassthroughController : MonoBehaviour
             OVRCameraRig ovrCameraRig = GameObject.Find("OVRCameraRig").GetComponent<OVRCameraRig>();
             var centerCamera = ovrCameraRig.centerEyeAnchor.GetComponent<Camera>();
             centerCamera.clearFlags = CameraClearFlags.Skybox;
+            groundGameObject.SetActive(true);
         }
     }
 }
