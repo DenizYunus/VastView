@@ -20,7 +20,7 @@ public class JoystickMovement : MonoBehaviour
         {
             ClimbProvider.Instance.MoveRight();
         }
-        if (OVRInput.Get(OVRInput.RawButton.RThumbstick))
+        if (OVRInput.GetDown(OVRInput.RawButton.RThumbstick))
         {
             ClimbProvider.Instance.ToggleFlyMode();
         }
