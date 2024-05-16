@@ -9,16 +9,55 @@ public class HandTrackingAndControllerSwitcher : MonoBehaviour
 
     public GameObject menu;
     public GameObject menuSwitch;
+    public GameObject keyboardSwitch;
 
     public Transform menuInController;
     public Transform menuInHand;
     public Transform menuSwitchInController;
     public Transform menuSwitchInHand;
+    public Transform keyboardSwitchInController;
+    public Transform keyboardSwitchInHand;
 
     void Start()
     {
         OVRManager.InputFocusAcquired += HandleInputFocusAcquired;
         OVRManager.InputFocusLost += HandleInputFocusLost;
+
+        bool leftControllerConnected = (OVRInput.GetControllerIsInHandState(OVRInput.Hand.HandLeft) == OVRInput.ControllerInHandState.ControllerInHand);
+        bool rightControllerConnected = (OVRInput.GetControllerIsInHandState(OVRInput.Hand.HandRight) == OVRInput.ControllerInHandState.ControllerInHand);
+
+        if (leftControllerConnected)
+        {
+            leftHandUsingController = true;
+            FingerColliderCreator.LeftHandInstance.sphere.transform.SetParent(FingerColliderCreator.LeftHandInstance.controllerParent, false);
+            Debug.Log("Left hand switched to Controller Tracking");
+            UpdateTransform(menu, menuInController);
+            UpdateTransform(menuSwitch, menuSwitchInController);
+        }
+        else if (!leftControllerConnected)
+        {
+            leftHandUsingController = false;
+            FingerColliderCreator.LeftHandInstance.created = false;
+            Debug.Log("Left hand switched to Hand Tracking");
+            UpdateTransform(menu, menuInHand);
+            UpdateTransform(menuSwitch, menuSwitchInHand);
+        }
+
+        // Update right hand usage
+        if (rightControllerConnected)
+        {
+            rightHandUsingController = true;
+            FingerColliderCreator.RightHandInstance.sphere.transform.SetParent(FingerColliderCreator.RightHandInstance.controllerParent, false);
+            Debug.Log("Right hand switched to Controller Tracking");
+            UpdateTransform(keyboardSwitch, keyboardSwitchInController);
+        }
+        else if (!rightControllerConnected)
+        {
+            rightHandUsingController = false;
+            FingerColliderCreator.RightHandInstance.created = false;
+            Debug.Log("Right hand switched to Hand Tracking");
+            UpdateTransform(keyboardSwitch, keyboardSwitchInHand);
+        }
     }
 
     void Update()
@@ -113,12 +152,14 @@ public class HandTrackingAndControllerSwitcher : MonoBehaviour
             rightHandUsingController = true;
             FingerColliderCreator.RightHandInstance.sphere.transform.SetParent(FingerColliderCreator.RightHandInstance.controllerParent, false);
             Debug.Log("Right hand switched to Controller Tracking");
+            UpdateTransform(keyboardSwitch, keyboardSwitchInController);
         }
         else if (!rightControllerConnected && rightHandUsingController)
         {
             rightHandUsingController = false;
             FingerColliderCreator.RightHandInstance.created = false;
             Debug.Log("Right hand switched to Hand Tracking");
+            UpdateTransform(keyboardSwitch, keyboardSwitchInHand);
         }
     }
 
