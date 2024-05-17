@@ -5,8 +5,6 @@ public class HandTrackingAndControllerSwitcher : MonoBehaviour
     private bool leftHandUsingController = false;
     private bool rightHandUsingController = false;
 
-    // A gameobject will be on 2 different positions and rotations for controller and hand tracking, so we need to switch between them, write a script to do that
-
     public GameObject menu;
     public GameObject menuSwitch;
     public GameObject keyboardSwitch;
@@ -43,7 +41,6 @@ public class HandTrackingAndControllerSwitcher : MonoBehaviour
             UpdateTransform(menuSwitch, menuSwitchInHand);
         }
 
-        // Update right hand usage
         if (rightControllerConnected)
         {
             rightHandUsingController = true;
