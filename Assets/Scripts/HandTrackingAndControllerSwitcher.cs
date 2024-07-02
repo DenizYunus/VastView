@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class HandTrackingAndControllerSwitcher : MonoBehaviour
@@ -18,6 +19,13 @@ public class HandTrackingAndControllerSwitcher : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(DelayedStart());
+    }
+
+    private IEnumerator DelayedStart()
+    {
+        yield return new WaitForEndOfFrame();
+
         OVRManager.InputFocusAcquired += HandleInputFocusAcquired;
         OVRManager.InputFocusLost += HandleInputFocusLost;
 
@@ -162,9 +170,13 @@ public class HandTrackingAndControllerSwitcher : MonoBehaviour
 
     void UpdateTransform(GameObject obj, Transform target)
     {
-        obj.transform.position = target.position;
-        obj.transform.rotation = target.rotation;
+        if (obj != null && target != null)
+        {
+            obj.transform.position = target.position;
+            obj.transform.rotation = target.rotation;
+        }
     }
+
 
     private void HandleInputFocusAcquired()
     {

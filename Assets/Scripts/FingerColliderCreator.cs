@@ -51,6 +51,7 @@ public class FingerColliderCreator : MonoBehaviour
 
     void Start()
     {
+        FindObjectsOfType<ButtonTrigger>(true).ToList().ForEach (x => x.enabled = false);
         skeleton = GetComponent<OVRSkeleton>();
 
         CreateInstance();
@@ -63,19 +64,20 @@ public class FingerColliderCreator : MonoBehaviour
 
         sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.AddComponent<BoxCollider>();
-        //sphere.GetComponent<MeshRenderer>().enabled = false;
         var rb = sphere.AddComponent<Rigidbody>();
         sphere.AddComponent<VRHandBrowserEvents>().SetProperties(m_tlabWebView, m_webViewRect);
         rb.useGravity = false;
         rb.isKinematic = true;
         handPlayerController = sphere.AddComponent<HandPlayerController>();
+        Debug.Log("skeletonType: " + skeletonType);
         handPlayerController.skeletonType = skeletonType;
+        Debug.Log("handPlayerController.skeletonType: " + handPlayerController.skeletonType);
         handPlayerController.Initialize();
         var hsc = sphere.AddComponent<HandSphereClimb>();
         hsc.skeletonType = skeletonType;
         hsc.Initialize();
 
-
+        FindObjectsOfType<ButtonTrigger>(true).ToList().ForEach(x => x.enabled = true);
 
 
 

@@ -81,23 +81,4 @@ public class HandPlayerController : MonoBehaviour
             }
         }
     }
-
-    void OnEnable()
-    {
-        //if (leftControllerInstance == null)
-        //{
-        //    if (skeletonType == OVRPlugin.SkeletonType.HandLeft)
-        //        leftControllerInstance = this;
-        //}
-        //if (rightControllerInstance == null)
-        //{
-        //    if (skeletonType == OVRPlugin.SkeletonType.HandRight)
-        //        rightControllerInstance = this;
-        //}
-    }
-
-    void Update()
-    {
-
-    }
 }

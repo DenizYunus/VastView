@@ -36,8 +36,11 @@ namespace TLab.InputField
             col.isTrigger = true; // Disabled because working on climb 
             col.providesContacts = true;
             col.size = new Vector3(GetComponent<RectTransform>().rect.width, GetComponent<RectTransform>().rect.height, 5);
-            Rigidbody rigidbody = gameObject.AddComponent<Rigidbody>();
-            rigidbody.isKinematic = true;
+            if (gameObject.GetComponent<Rigidbody>() == null)
+            {
+                Rigidbody rigidbody = gameObject.AddComponent<Rigidbody>();
+            }
+            GetComponent<Rigidbody>().isKinematic = true;
             tag = "SKey";
         }
 
