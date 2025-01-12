@@ -20,7 +20,7 @@ VastView does not integrate with any third-party services that collect data. All
 We may update this Privacy Policy from time to time. If we make any changes, we will notify you by updating the effective date at the top of this policy. We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your information.
 
 ## Contact Us
-If you have any questions or concerns about this Privacy Policy or our privacy practices, please contact us at [Insert Contact Email].
+If you have any questions or concerns about this Privacy Policy or our privacy practices, please contact us at denizyunusgogus@gmail.com.
 
 By using VastView, you agree to this Privacy Policy. If you do not agree with this policy, please do not use the App.
 
